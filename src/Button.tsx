@@ -12,6 +12,8 @@ const StyledButton = styled.button`
   border: 8px ${theme.secondary} solid;
   box-shadow: 0px 0px 8px 0 rgba(0, 0, 0, 0.75);
 
+  min-width: 230px;
+
   > svg {
     background-color: transparent;
     padding: 2rem;
