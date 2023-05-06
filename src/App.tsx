@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo } from "react"
+import { FC, useEffect, useMemo } from "react"
 import "./reset.css"
 import "@fontsource/pacifico"
 
