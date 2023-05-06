@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react"
+import { FC, useCallback, useEffect, useMemo } from "react"
 import "./reset.css"
 import "@fontsource/pacifico"
 
@@ -27,6 +27,14 @@ export const App: FC = () => {
     audio.currentTime = 0
     audio.play()
   }
+
+  useEffect(() => {
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        play()
+      }
+    })
+  }, [])
 
   return (
     <Main>
