@@ -29,6 +29,7 @@ const StyledButton = styled.button`
 const Counter = styled.div`
   font-size: 1rem;
   color: ${theme.secondary};
+  text-align: center;
   margin-top: 1rem;
 `
 
