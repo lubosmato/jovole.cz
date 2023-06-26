@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import styled from "styled-components"
 import { theme } from "./theme"
 import { Megaphone } from "./Megaphone"
@@ -26,16 +26,38 @@ const StyledButton = styled.button`
   }
 `
 
+const Counter = styled.div`
+  font-size: 1rem;
+  color: ${theme.secondary};
+  margin-top: 1rem;
+`
+
 export type ButtonProps = {
   click?: () => void
 }
 
+const COUNT_KEY = "count"
+
 export const Button: FC<ButtonProps> = ({ click }) => {
+  const [count, setCount] = useState(
+    parseInt(localStorage.getItem(COUNT_KEY) ?? "0"),
+  )
+
+  useEffect(() => {
+    localStorage.setItem(COUNT_KEY, count.toString())
+  }, [count])
+
+  const handleClick = () => {
+    setCount((count) => count + 1)
+    if (click) click()
+  }
+
   return (
     <>
-      <StyledButton onClick={click}>
+      <StyledButton onClick={handleClick}>
         <Megaphone />
       </StyledButton>
+      <Counter>{count}</Counter>
     </>
   )
 }
