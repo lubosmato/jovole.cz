@@ -2,12 +2,13 @@ import { FC, useEffect, useState } from "react"
 import styled from "styled-components"
 import { theme } from "./theme"
 import { Megaphone } from "./Megaphone"
+import { SoundType, useSoundContext } from "./SoundContext"
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ soundType: SoundType }>`
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   width: 20%;
-  background-color: ${theme.primary};
+  background-color: ${({ soundType: sound }) => theme[sound].primary};
   border-radius: 12px;
   border: 8px ${theme.secondary} solid;
   box-shadow: 0px 0px 8px 0 rgba(0, 0, 0, 0.75);
@@ -43,6 +44,7 @@ export const Button: FC<ButtonProps> = ({ click }) => {
   const [count, setCount] = useState(
     parseInt(localStorage.getItem(COUNT_KEY) ?? "0"),
   )
+  const { soundType } = useSoundContext()
 
   useEffect(() => {
     localStorage.setItem(COUNT_KEY, count.toString())
@@ -55,7 +57,7 @@ export const Button: FC<ButtonProps> = ({ click }) => {
 
   return (
     <>
-      <StyledButton onClick={handleClick}>
+      <StyledButton soundType={soundType} onClick={handleClick}>
         <Megaphone />
       </StyledButton>
       <Counter>{count}</Counter>

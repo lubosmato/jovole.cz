@@ -5,14 +5,63 @@ import "@fontsource/pacifico"
 import { Button } from "./Button"
 import styled from "styled-components"
 import { theme } from "./theme"
+import { SoundType, useSoundContext } from "./SoundContext"
+
+export const App: FC = () => {
+  const [isPlaying, setPlaying] = useState(false)
+  const { soundType } = useSoundContext()
+
+  const audio = useMemo(() => new Audio(`/${soundType}.mp3`), [])
+  const play = () => {
+    audio.currentTime = 0
+    audio.play()
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        play()
+      }
+    }
+
+    const handlePlaying = () => {
+      setPlaying(true)
+    }
+
+    const handlePause = () => {
+      setPlaying(false)
+    }
+
+    audio.addEventListener("playing", handlePlaying)
+    audio.addEventListener("pause", handlePause)
+    document.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      audio.removeEventListener("playing", handlePlaying)
+      audio.removeEventListener("pause", handlePause)
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
+
+  const title = soundType === "jozo" ? "Jožooo!" : "Jo vole!"
+
+  return (
+    <Main soundType={soundType}>
+      <Title>{title}</Title>
+      <Earthquake isEnabled={isPlaying}>
+        <Button click={play}></Button>
+      </Earthquake>
+    </Main>
+  )
+}
 
 const Title = styled.h1`
   font-size: 5rem;
   margin-bottom: 2rem;
 `
 
-const Main = styled.div`
-  background-color: ${theme.primary};
+const Main = styled.div<{ soundType: SoundType }>`
+  background-color: ${({ soundType: sound }) => theme[sound].primary};
   color: ${theme.secondary};
   display: flex;
   flex-direction: column;
@@ -230,48 +279,3 @@ const Earthquake = styled.div<{ isEnabled: boolean }>`
     }
   }
 `
-
-export const App: FC = () => {
-  const [isPlaying, setPlaying] = useState(false)
-
-  const audio = useMemo(() => new Audio("/jovole.mp3"), [])
-  const play = () => {
-    audio.currentTime = 0
-    audio.play()
-  }
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Enter") {
-        play()
-      }
-    }
-
-    const handlePlaying = () => {
-      setPlaying(true)
-    }
-
-    const handlePause = () => {
-      setPlaying(false)
-    }
-
-    audio.addEventListener("playing", handlePlaying)
-    audio.addEventListener("pause", handlePause)
-    document.addEventListener("keydown", handleKeyDown)
-
-    return () => {
-      audio.removeEventListener("playing", handlePlaying)
-      audio.removeEventListener("pause", handlePause)
-      document.removeEventListener("keydown", handleKeyDown)
-    }
-  }, [])
-
-  return (
-    <Main>
-      <Title>Jo vole!</Title>
-      <Earthquake isEnabled={isPlaying}>
-        <Button click={play}></Button>
-      </Earthquake>
-    </Main>
-  )
-}
