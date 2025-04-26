@@ -1,11 +1,10 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
-import { getPayload } from 'payload'
-import React from 'react'
-import { fileURLToPath } from 'url'
+import { headers as getHeaders } from "next/headers.js"
+import Image from "next/image"
+import { getPayload } from "payload"
+import React from "react"
+import { fileURLToPath } from "url"
 
-import config from '@/payload.config'
-import './styles.css'
+import config from "@/payload.config"
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -17,6 +16,7 @@ export default async function HomePage() {
 
   return (
     <div className="home">
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
       <div className="content">
         <picture>
           <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg" />

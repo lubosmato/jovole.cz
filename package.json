@@ -5,36 +5,43 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
-    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
-    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "build": "next build",
+    "dev": "docker-compose up -d && next dev",
+    "devsafe": "rm -rf .next && next dev",
+    "generate:importmap": "payload generate:importmap",
+    "generate:types": "payload generate:types",
+    "lint": "next lint",
+    "payload": "payload",
+    "start": "next start"
   },
   "dependencies": {
-    "@payloadcms/next": "3.33.0",
-    "@payloadcms/payload-cloud": "3.33.0",
-    "@payloadcms/richtext-lexical": "3.33.0",
-    "cross-env": "^7.0.3",
+    "@payloadcms/db-postgres": "3.35.1",
+    "@payloadcms/next": "3.35.1",
+    "@payloadcms/payload-cloud": "3.35.1",
+    "@payloadcms/richtext-lexical": "3.35.1",
+    "@tailwindcss/postcss": "^4.1.4",
     "graphql": "^16.8.1",
     "next": "15.3.0",
-    "payload": "3.33.0",
+    "payload": "3.35.1",
+    "postcss": "^8.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sharp": "0.32.6",
-    "@payloadcms/db-postgres": "3.33.0"
+    "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
+    "@next/eslint-plugin-next": "^15.3.1",
     "@types/node": "^22.5.4",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.2",
     "eslint": "^9.16.0",
     "eslint-config-next": "15.3.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "prettier": "^3.4.2",
+    "tsx": "^4.19.3",
     "typescript": "5.7.3"
   },
   "engines": {
@@ -43,7 +50,10 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "sharp"
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
 }
