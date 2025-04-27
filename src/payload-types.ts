@@ -68,7 +68,8 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
-    media: Media;
+    buttons: Button;
+    sounds: Sound;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -76,7 +77,8 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
+    buttons: ButtonsSelect<false> | ButtonsSelect<true>;
+    sounds: SoundsSelect<false> | SoundsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -132,11 +134,26 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "buttons".
  */
-export interface Media {
+export interface Button {
   id: number;
-  alt: string;
+  color: string;
+  bgColor: string;
+  title: string;
+  slug: string;
+  sound: number | Sound;
+  default: boolean;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sounds".
+ */
+export interface Sound {
+  id: number;
+  label: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -161,8 +178,12 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'buttons';
+        value: number | Button;
+      } | null)
+    | ({
+        relationTo: 'sounds';
+        value: number | Sound;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -223,10 +244,24 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "buttons_select".
  */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
+export interface ButtonsSelect<T extends boolean = true> {
+  color?: T;
+  bgColor?: T;
+  title?: T;
+  slug?: T;
+  sound?: T;
+  default?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sounds_select".
+ */
+export interface SoundsSelect<T extends boolean = true> {
+  label?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

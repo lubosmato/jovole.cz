@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
     "lib": [
@@ -6,6 +7,8 @@
       "DOM.Iterable",
       "ES2022"
     ],
+    "noUncheckedIndexedAccess": true,
+    "noImplicitAny": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -30,7 +33,7 @@
         "./src/payload.config.ts"
       ]
     },
-    "target": "ES2022",
+    "target": "ES2022"
   },
   "include": [
     "next-env.d.ts",
