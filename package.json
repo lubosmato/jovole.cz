@@ -20,6 +20,7 @@
     "@payloadcms/next": "3.35.1",
     "@payloadcms/payload-cloud": "3.35.1",
     "@payloadcms/richtext-lexical": "3.35.1",
+    "@payloadcms/storage-vercel-blob": "^3.35.1",
     "@tailwindcss/postcss": "^4.1.4",
     "clsx": "^2.1.1",
     "graphql": "^16.8.1",
