@@ -8,6 +8,7 @@
     "build": "next build",
     "dev": "docker-compose up -d && next dev",
     "devsafe": "rm -rf .next && next dev",
+    "migrate": "payload migrate",
     "generate:importmap": "payload generate:importmap",
     "generate:types": "payload generate:types",
     "lint": "next lint",
